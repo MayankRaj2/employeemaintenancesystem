@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "user_details")
 public class User {
@@ -34,9 +36,11 @@ public class User {
 	private String userType;
 	
 	@Column(name= "dob")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateOfBirth;
 	
 	@Column(name= "doj")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateOfJoining;
 	
 	@OneToOne

@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
+	@Override
+	public List<User> searchByFirstName(String fname) {
+		return userRepository.findByFirstName(fname);
+	}
+
 }
