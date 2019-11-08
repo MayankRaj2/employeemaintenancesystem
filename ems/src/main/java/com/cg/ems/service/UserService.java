@@ -23,4 +23,14 @@ public interface UserService {
 	
 	public List<User> searchByFirstName(String fname);
 	
+	public List<User> searchByLastName(String lname);
+	
+	public List<User> searchByuserId(Integer userId);
+	
+	public List<User> searchByDepartment(String department);
+	
+	public List<User> searchByGrade(String grade);
+	
+	public List<User> searchByMaritalStatus(String mstatus);
+	
 }

@@ -61,4 +61,33 @@ public class emsController {
 		return new ResponseEntity<List<User>>(userService.searchByFirstName(fname), HttpStatus.OK);
 	}
 	
+
+	@GetMapping("/findByLastName")
+	public ResponseEntity<List<User>> findByLastName(@RequestParam String lname){
+		return new ResponseEntity<List<User>>(userService.searchByLastName(lname), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findById")
+	public ResponseEntity<List<User>> findById(@RequestParam Integer id){
+		return new ResponseEntity<List<User>>(userService.searchByuserId(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findByDepartment")
+	public ResponseEntity<List<User>> findByDepartment(@RequestParam String department){
+		return new ResponseEntity<List<User>>(userService.searchByDepartment(department), HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/findByGrade")
+	public ResponseEntity<List<User>> findByGrade(@RequestParam String grade){
+		return new ResponseEntity<List<User>>(userService.searchByGrade(grade), HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/findByMaritalStatus")
+	public ResponseEntity<List<User>> findByMaritalStatus(@RequestParam String mstatus){
+		return new ResponseEntity<List<User>>(userService.searchByMaritalStatus(mstatus), HttpStatus.OK);
+	}
+	
+	
 }

@@ -50,4 +50,34 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findByFirstName(fname);
 	}
 
+	@Override
+	public List<User> searchByLastName(String lname) {
+		// TODO Auto-generated method stub
+		return userRepository.findByLastName(lname);
+	}
+
+	@Override
+	public List<User> searchByuserId(Integer userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserId(userId);
+	}
+
+	@Override
+	public List<User> searchByDepartment(String department) {
+		// TODO Auto-generated method stub
+		return userRepository.findByDepartment(department);
+	}
+
+	@Override
+	public List<User> searchByGrade(String grade) {
+		// TODO Auto-generated method stub
+		return userRepository.findByGrade(grade);
+	}
+
+	@Override
+	public List<User> searchByMaritalStatus(String mstatus) {
+		// TODO Auto-generated method stub
+		return userRepository.findByMaritalStatus(mstatus);
+	}
+
 }
