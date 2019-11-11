@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.ems.dao.UserRepository;
 import com.cg.ems.dto.User;
+import com.cg.ems.exception.EmployeeNotFoundException;
 
 /**
  * @author Mayank
@@ -78,6 +79,31 @@ public class UserServiceImpl implements UserService{
 	public List<User> searchByMaritalStatus(String mstatus) {
 		// TODO Auto-generated method stub
 		return userRepository.findByMaritalStatus(mstatus);
+	}
+	
+	
+	/**
+	 * Function to authenticate user credentials - userId and password.
+	 * Delegates call to UserRepo where User having the input userId and password gets fetched.
+	 * If not found, EmployeeNotFoundException is thrown.
+	 * @param userId
+	 * @param password
+	 * @return
+	 * @throws EmployeeNotFoundException
+	 */
+	@Override
+	public User loginUser(Integer userId, String password) throws EmployeeNotFoundException {
+		//logger.info("In loginEmployee method of service");
+		User user = userRepository.loginUser(userId, password);
+		 if(user == null) {
+			 //logger.error("Object not retrieved from repo. Login denied.");
+			 throw new EmployeeNotFoundException("Employee not present. Login denied."); 
+		 }
+		 else {
+			// logger.info("Object retrieved from repo. Login allowed.");
+			 return user;
+		 }
+		 
 	}
 
 }

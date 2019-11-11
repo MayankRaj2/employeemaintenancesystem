@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.cg.ems.dto.User;
+import com.cg.ems.exception.EmployeeNotFoundException;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
@@ -27,5 +28,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query("FROM User WHERE maritalStatus = ?1")
 	 List<User> findByMaritalStatus(String maritalStatus);
+	
+	
+	/**
+	 * Function to authenticate user credentials - userId and password.
+	 * @param userId
+	 * @param password
+	 * @throws EmployeeNotFoundException
+	 */
+	@Query("SELECT user FROM User user WHERE user.userId = :userId AND user.password = :password")
+	User loginUser(Integer userId, String password) throws EmployeeNotFoundException;
 	
 }

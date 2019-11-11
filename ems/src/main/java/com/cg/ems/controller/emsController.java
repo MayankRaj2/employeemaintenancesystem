@@ -2,9 +2,13 @@ package com.cg.ems.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.cg.ems.dto.User;
+import com.cg.ems.exception.EmployeeNotFoundException;
 import com.cg.ems.service.DepartmentService;
 import com.cg.ems.service.GradeService;
 import com.cg.ems.service.UserService;
 
 @RestController
 @RequestMapping(value = "/ems")
+@CrossOrigin(origins = "http://localhost:4201")
 public class emsController {
 	
 	@Autowired
@@ -30,6 +36,9 @@ public class emsController {
 	
 	@Autowired
 	DepartmentService departmentService;
+	
+	//Logger object for logging various activities
+		private static final Logger logger = LoggerFactory.getLogger(emsController.class);
 	
 	
 	@PostMapping(value="/adduser")
@@ -87,6 +96,25 @@ public class emsController {
 	@GetMapping("/findByMaritalStatus")
 	public ResponseEntity<List<User>> findByMaritalStatus(@RequestParam String mstatus){
 		return new ResponseEntity<List<User>>(userService.searchByMaritalStatus(mstatus), HttpStatus.OK);
+	}
+	
+	/**
+	 * Function to check login credentials and allow access to other functions.
+	 * @param empId
+	 * @param password
+	 * @return
+	 */
+	@GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	public User loginUser(@RequestParam Integer userId, @RequestParam String password)   {
+		logger.info("Trying for Login");
+		try {
+			logger.info("Successful Employee login");
+			return userService.loginUser(userId, password);
+		} catch (EmployeeNotFoundException ex) {
+			logger.error("Employees login not successful ");
+			System.out.println(ex.getMessage());
+			return null;
+		}
 	}
 	
 	
